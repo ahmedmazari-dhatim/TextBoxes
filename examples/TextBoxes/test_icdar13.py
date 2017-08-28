@@ -11,17 +11,17 @@ plt.rcParams['image.interpolation'] = 'nearest'
 plt.rcParams['image.cmap'] = 'gray'
 
 # Make sure that caffe is on the python path:
-caffe_root = 'your_caffe_root/'  # this file is expected to be in {caffe_root}/examples
+caffe_root = '/home/ahmed/TextBoxes/'  # this file is expected to be in {caffe_root}/examples
 os.chdir(caffe_root)
 import sys
 sys.path.insert(0, 'python')
 
 import caffe
 caffe.set_device(0)
-caffe.set_mode_gpu()
+caffe.set_mode_cpu()
 
-model_def = 'your_caffe_root/examples/TextBoxes/deploy.prototxt'
-model_weights = 'your_caffe_root/examples/TextBoxes/TextBoxes_icdar13.caffemodel'
+model_def = '/home/ahmed/TextBoxes/examples/TextBoxes/deploy.prototxt'
+model_weights = '/home/ahmed/TextBoxes/examples/TextBoxes/TextBoxes_icdar13.caffemodel'
 
 scales=((700,700),)
 # IMPORTANT: If use mutliple scales in the paper, you need an extra non-maximum superession for the results

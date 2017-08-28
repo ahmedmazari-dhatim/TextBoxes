@@ -11,22 +11,25 @@ plt.rcParams['image.interpolation'] = 'nearest'
 plt.rcParams['image.cmap'] = 'gray'
 
 # Make sure that caffe is on the python path:
-caffe_root = './'  # this file is expected to be in {caffe_root}/examples
+caffe_root = '/home/ahmed/TextBoxes/'  # this file is expected to be in {caffe_root}/examples
 os.chdir(caffe_root)
 import sys
 sys.path.insert(0, 'python')
 
 import caffe
 caffe.set_device(0)
-caffe.set_mode_gpu()
+caffe.set_mode_cpu()
 
-model_def = './examples/TextBoxes/deploy.prototxt'
-model_weights = './examples/TextBoxes/TextBoxes_icdar13.caffemodel'
+model_def = '/home/ahmed/TextBoxes/examples/TextBoxes/deploy.prototxt'
+model_weights = '/home/ahmed/TextBoxes/examples/TextBoxes/TextBoxes_icdar13.caffemodel'
 
-use_multi_scale = True
+#model_weights = '/home/ahmed/TextBoxes/examples/TextBoxes/VGG_ILSVRC_16_layers_fc_reduced.caffemodel'
+use_multi_scale = False
 
 if not use_multi_scale:
 	scales=((700,700),)
+	 #scales = ((300, 300),)
+
 else:
 	scales=((300,300),(700,700),(700,500),(700,300),(1600,1600))
 
@@ -37,7 +40,8 @@ net = caffe.Net(model_def,      # defines the structure of the model
 
 dt_results=[]
 
-image_path='./examples/img/demo.jpg'
+image_path='/home/ahmed/TextBoxes/examples/img/demo3.png'
+
 image=caffe.io.load_image(image_path)
 image_height,image_width,channels=image.shape
 plt.clf()
@@ -103,7 +107,7 @@ for k,dt in enumerate(dt_results):
 		currentAxis.add_patch(plt.Rectangle(*coords, fill=False, edgecolor=color, linewidth=2))
 		currentAxis.text(xmin, ymin, name, bbox={'facecolor':'white', 'alpha':0.5})
 
-plt.savefig('./examples/results/demo_result.jpg')
+plt.savefig('/home/ahmed/TextBoxes/examples/results/demo_result3.png')
 
 print('success')
 
